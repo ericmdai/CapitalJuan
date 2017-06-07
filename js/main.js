@@ -5,7 +5,7 @@ function preload() {
     game.load.image('sky', 'assets/game/sky.png');
     game.load.image('ground', 'assets/game/platform.png');
     game.load.image('star', 'assets/game/star.png');
-    game.load.spritesheet('dude', 'assets/game/dude.png', 32, 48);
+    game.load.spritesheet('dude', 'assets/game/slj_head_bob_sprite.png', 32, 58);
 
 }
 
