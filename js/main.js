@@ -7,8 +7,8 @@ function preload() {
     game.load.image('silverNugget', 'assets/game/silver_nug.png');
     game.load.image('goldNugget', 'assets/game/gold_nug.png');
     game.load.image('diamond', 'assets/game/diamond.png');
+    game.load.image('spikes', 'assets/game/free-spikes-and-blades.png');
     game.load.spritesheet('dude', 'assets/game/slj_head_bob_sprite.png', 32, 58);
-    game.load.spritesheet('spikes', 'assets/game/free-spikes-and-blades.jpg', 214, 50);
 
 }
 
@@ -51,7 +51,7 @@ function create() {
     var diamond = gems.create(game.world.width - 50, 370, 'diamond');
     diamond.body.immovable = true;
 
-    var spike = spikes.create(game.world.width - 50, game.world.height - 114, 'spikes');
+    var spike = spikes.create(game.world.width - 200, game.world.height - 114, 'spikes');
     spike.body.immovable = true;
 
     player = game.add.sprite(32, game.world.height - 150, 'dude');
@@ -85,7 +85,7 @@ function update() {
         if (gem.body.x <= -gem.body.width) {
             gem.body.x = game.world.width;
         }
-    })
+    });
 
 
     // Move scene to the left
@@ -93,6 +93,13 @@ function update() {
         platform.body.x -= 5;
         if (platform.body.x <= -platform.body.width) {
             platform.body.x = game.world.width;
+        }
+    });
+
+    spikes.forEach(function(spike) {
+        spike.body.x -= 5;
+        if (spike.body.x <= -spike.body.width) {
+            spike.body.x = game.world.width;
         }
     });
 
