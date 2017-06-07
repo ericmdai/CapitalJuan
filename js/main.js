@@ -7,7 +7,11 @@ function preload() {
     game.load.image('silverNugget', 'assets/game/silver_nug.png');
     game.load.image('goldNugget', 'assets/game/gold_nug.png');
     game.load.image('diamond', 'assets/game/diamond.png');
-    game.load.image('spikes', 'assets/game/free-spikes-and-blades.png');
+    game.load.image('singleSpike', 'assets/game/spikes1.png');
+    game.load.image('doubleSpikes', 'assets/game/spikes2.png');
+    game.load.image('tripleSpikes', 'assets/game/spikes3.png');
+    game.load.image('quadSpikes', 'assets/game/spikes4.png');
+
     game.load.spritesheet('dude', 'assets/game/slj_head_bob_sprite.png', 32, 58);
 
 }
@@ -51,9 +55,19 @@ function create() {
     var diamond = gems.create(game.world.width - 50, 370, 'diamond');
     diamond.body.immovable = true;
 
-    var spike = spikes.create(game.world.width - 200, game.world.height - 90, 'spikes');
-    spike.body.immovable = true;
-    spike.scale.setTo(0.5, 0.5);
+    var single = spikes.create(game.world.width - 200, game.world.height - 90, 'singleSpike');
+    var double = spikes.create(game.world.width - 170, game.world.height - 90, 'doubleSpikes');
+    var triple = spikes.create(game.world.width - 120, game.world.height - 90, 'tripleSpikes');
+    var quad = spikes.create(game.world.width - 60, game.world.height - 90, 'quadSpikes');
+
+    single.body.immovable = true;
+    single.scale.setTo(0.5, 0.5);
+    double.body.immovable = true;
+    double.scale.setTo(0.5, 0.5);
+    triple.body.immovable = true;
+    triple.scale.setTo(0.5, 0.5);
+    quad.body.immovable = true;
+    quad.scale.setTo(0.5, 0.5);
 
     player = game.add.sprite(32, game.world.height - 150, 'dude');
     game.physics.arcade.enable(player);
