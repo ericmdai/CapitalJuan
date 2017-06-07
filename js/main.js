@@ -12,7 +12,7 @@ function preload() {
 var player;
 var horizon;
 var platforms;
-var cursors;
+var spacebar;
 
 function create() {
 
@@ -62,7 +62,8 @@ function create() {
     player.animations.add('right', [5, 6, 7, 8], 10, true);
 
     //  Our controls.
-    cursors = game.input.keyboard.createCursorKeys();
+    spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+    game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
 
 }
 
@@ -76,7 +77,7 @@ function update() {
 
     // Move scene to the left
     platforms.forEach(function(platform) {
-        platform.body.x -= 10;
+        platform.body.x -= 5;
         if (platform.body.x <= -platform.body.width) {
             platform.body.x = game.world.width;
         }
@@ -87,7 +88,7 @@ function update() {
     player.animations.play('right');
 
     //  Allow the player to jump if they are touching the ground.
-    if (cursors.up.isDown && player.body.touching.down)
+    if (spacebar.isDown && player.body.touching.down)
     {
         player.body.velocity.y = -550;
     }
