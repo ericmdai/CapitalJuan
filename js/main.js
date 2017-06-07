@@ -51,8 +51,9 @@ function create() {
     var diamond = gems.create(game.world.width - 50, 370, 'diamond');
     diamond.body.immovable = true;
 
-    var spike = spikes.create(game.world.width - 200, game.world.height - 114, 'spikes');
+    var spike = spikes.create(game.world.width - 200, game.world.height - 90, 'spikes');
     spike.body.immovable = true;
+    spike.scale.setTo(0.5, 0.5);
 
     player = game.add.sprite(32, game.world.height - 150, 'dude');
     game.physics.arcade.enable(player);
@@ -77,6 +78,7 @@ function update() {
     game.physics.arcade.collide(player, horizon);
     game.physics.arcade.collide(player, platforms);
     game.physics.arcade.overlap(player, gems, collectGem, null, this);
+    game.physics.arcade.overlap(player, spikes, handleDeath, null, this);
 
 
 
@@ -130,4 +132,8 @@ function collectGem (player, gem) {
     scoreText.text = 'Score: ' + score;
     gem.kill();
 
+}
+
+function handleDeath (player, spike) {
+    player.kill();
 }
