@@ -74,7 +74,7 @@ function create() {
     var ledge = curr_scene.platforms.create(0, 475 - 50, 'ground');
     ledge.scale.setTo(1, 0.5);
     ledge.body.immovable = true;
-    ledge = curr_scene.platforms.create(200, 375 - 75, 'ground');
+    // ledge = curr_scene.platforms.create(200, 375 - 75, 'ground');
     ledge.scale.setTo(1, 0.5);
     ledge.body.immovable = true;
     var ledge = curr_scene.platforms.create(0, 475 - 50, 'ground');
@@ -83,15 +83,15 @@ function create() {
     curr_scene.platforms.enableBody = true;
 
     // curr_scene.platforms.width = curr_scene.platforms.children.reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0) ;
+    buildMoney(3, 200, 375 - 90, 1, 0.5, 'money1');
 
-    buildMoney(3, 200, 375 - 50, 1, 0.5, 'money1');
 
     // var silverNug = gems.create(game.world.width, 370, 'silverNugget');
     // var goldNug = gems.create(game.world.width, 370, 'goldNugget');
     var diamond = curr_scene.gems.create(550, game.world.height - 200, 'diamond');
     diamond.body.immovable = true;
 
-    var silverNug = curr_scene.gems.create(310, game.world.height - 325, 'silverNugget');
+    var silverNug = curr_scene.gems.create(310, game.world.height - 335, 'silverNugget');
     silverNug.body.immovable = true;
 
     var goldNug = curr_scene.gems.create(400, game.world.height-100, 'goldNugget');
