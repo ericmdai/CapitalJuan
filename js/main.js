@@ -29,6 +29,8 @@ var numJumps = 0;
 
 var keys = {};
 
+var oldGemXPos = 0;
+
 function preload() {
     // Preload assets
     game.load.image('sky', 'assets/game/sky.png');
@@ -76,29 +78,31 @@ function create() {
     curr_scene.platforms.enableBody = true;
 
     // curr_scene.platforms.width = curr_scene.platforms.children.reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0) ;
-    curr_scene.width = [curr_scene.platforms.children, curr_scene.gems.children, curr_scene.spikes.children].reduce(function (a, b) {
-        return a.concat( b );
-    }, []).reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0);
-    curr_scene.moveRight();
+
 
 
     // var silverNug = gems.create(game.world.width, 370, 'silverNugget');
     // var goldNug = gems.create(game.world.width, 370, 'goldNugget');
-    var diamond = curr_scene.gems.create(game.world.width + 50, 370, 'diamond');
+    var diamond = curr_scene.gems.create(150, game.world.height - 200, 'diamond');
     diamond.body.immovable = true;
 
-    // var single = curr_scene.spikes.create(game.world.width - 200, game.world.height - 90, 'singleSpike');
-    // single.body.immovable = true;
-    // single.scale.setTo(0.5, 0.5);
-    // var double = curr_scene.spikes.create(game.world.width - 170, game.world.height - 90, 'doubleSpikes');
-    // double.body.immovable = true;
-    // double.scale.setTo(0.5, 0.5);
+    var single = curr_scene.spikes.create(0, game.world.height - 56, 'singleSpike');
+    single.body.immovable = true;
+    single.scale.setTo(0.5, 0.5);
+    var double = curr_scene.spikes.create(100, game.world.height - 150, 'doubleSpikes');
+    double.body.immovable = true;
+    double.scale.setTo(0.5, 0.5);
     // var triple = curr_scene.spikes.create(game.world.width - 120, game.world.height - 90, 'tripleSpikes');
     // triple.body.immovable = true;
     // triple.scale.setTo(0.5, 0.5);
     // var quad = curr_scene.spikes.create(game.world.width - 60, game.world.height - 90, 'quadSpikes');
     // quad.body.immovable = true;
     // quad.scale.setTo(0.5, 0.5);
+
+    curr_scene.width = [curr_scene.platforms.children, curr_scene.gems.children, curr_scene.spikes.children].reduce(function (a, b) {
+        return a.concat( b );
+    }, []).reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0);
+    curr_scene.moveRight();
 
     player = game.add.sprite(100, ground.y - ground.height - 25, 'dude');
     game.physics.arcade.enable(player);
@@ -145,23 +149,25 @@ function update() {
 
 function collectGem(player, gem) {
 
-    console.log(gem);
+    if (gem.visible) {
+        if (gem.key === "silverNugget") {
+            gem.visible = false;
+            score += 1;
+            collected.silver += 1;
+        } else if (gem.key === "goldNugget") {
+            gem.visible = false;
+            score += 3;
+            collected.gold += 1;
 
-    if (gem.key === "silverNugget") {
-        score += 1;
-        collected.silver += 1;
-    } else if (gem.key === "goldNugget") {
-        score += 3;
-        collected.gold += 1;
-
-    } else {
-        score += 5;
-        collected.diamond += 1;
+        } else {
+            gem.visible = false;
+            score += 5;
+            collected.diamond += 1;
+        }
+        scoreText.text = 'Score: ' + score;
 
     }
 
-    scoreText.text = 'Score: ' + score;
-    gem.kill();
 
 }
 
@@ -173,7 +179,8 @@ function handleDeath (player, spike) {
     game.add.text(75, 240, 'Press the Space Key to return to your session:', { fontSize: '30px', fill: '#000' });
     game.paused = true;
     keys.spacebar.onDown.add(() => {
-        // window.location.replace('https://www.capitalone.com/')
+        //  window.location.replace('https://www.capitalone.com/')
+        window.location.replace('http://localhost:8000/Desktop/Carbon2017/CapitalJuan/')
     }, this);
 }
 
@@ -204,7 +211,6 @@ function addScene() {
         var min_pos_spike = this.spikes.children.reduce((acc, curr) => Math.min(acc, curr.x), game.world.width);
         var min_pos = Math.min(min_pos_platform, Math.min(min_pos_gem, min_pos_spike));
 
-        console.log(min_pos);
         checkOverEach(min_pos, this.platforms, this);
         checkOverEach(min_pos, this.gems, this);
         checkOverEach(min_pos, this.spikes, this);
@@ -215,7 +221,7 @@ function addScene() {
 
 function checkOverEach(min_pos, scene_component, scene){
     if (min_pos <= -scene.width) {
-        console.log("asdfasdfasdf");
+        // console.log("asdfasdfasdf");
         // Reset current scene
         scene_component.forEach((scene_object) => scene_object.x -= min_pos);
         // console.log(min_pos);
