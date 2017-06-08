@@ -76,7 +76,7 @@ function create() {
 
     // curr_scene.platforms.width = curr_scene.platforms.children.reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0) ;
 
-    buildMoney(3, 200, 375 - 50);
+    buildMoney(3, 200, 375 - 50, 1, 0.5);
 
     // var silverNug = gems.create(game.world.width, 370, 'silverNugget');
     // var goldNug = gems.create(game.world.width, 370, 'goldNugget');
@@ -293,10 +293,10 @@ function checkOverEach(min_pos, scene_component, scene){
 
 }
 
-function buildMoney(length, x, y) {
+function buildMoney(length, x, y, widthMod, heightMod) {
     for(var i = 0; i < length; i++) {
-        ledge = curr_scene.platforms.create(x + (127 * i), y, 'money1');
-        ledge.scale.setTo(1, 0.5);
+        ledge = curr_scene.platforms.create(x + (127 * i * widthMod), y, 'money1');
+        ledge.scale.setTo(widthMod, heightMod);
         ledge.body.immovable = true;
     }
 }
