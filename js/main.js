@@ -7,7 +7,7 @@ var player;
 
 var game_config = {
     speed: 5,
-    server_url: 'http://127.0.0.1:8001/test/',
+    server_url: 'http://ec2-52-39-254-117.us-west-2.compute.amazonaws.com/test/',
 };
 
 var gems;
@@ -78,7 +78,7 @@ function create() {
     ledge.body.immovable = true;
     curr_scene.platforms.enableBody = true;
 
- 
+
     createMoney(3, 200, 375 - 95, 1, 0.5, 'money1');
 
     // var silverNug = gems.create(game.world.width, 370, 'silverNugget');
@@ -109,7 +109,7 @@ function create() {
     double.scale.setTo(0.5, 0.5);
 
 
-    
+
 
 
 
@@ -160,7 +160,7 @@ function create() {
 
 
 
- 
+
 
     var single = curr_scene.spikes.create(0, game.world.height - 56, 'singleSpike');
     single.body.immovable = true;

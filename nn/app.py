@@ -1,5 +1,8 @@
 from flask import Flask, Response, jsonify, request
 from flask_cors import CORS, cross_origin
+
+from riskNet import *
+
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -16,8 +19,8 @@ def receive_data():
         return jsonify({"bad request"})
 
     content = request.get_json()
-    print content
-    return jsonify(content)
+    index = runNN(content["jumps"], content["silver"], content["gold"], content["diamonds"])
+    return jsonify(index)
 
 
 def main():
