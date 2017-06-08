@@ -7,8 +7,8 @@ var player;
 
 var game_config = {
     speed: 5,
-    server_url: 'http://localhost:8001/test/',
-    // server_url: 'http://ec2-52-39-254-117.us-west-2.compute.amazonaws.com/test/',
+    // server_url: 'http://localhost:8001/test/',
+    server_url: 'http://ec2-52-39-254-117.us-west-2.compute.amazonaws.com/test/',
 };
 
 var gems;
