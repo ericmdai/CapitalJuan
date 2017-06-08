@@ -74,7 +74,7 @@ function create() {
 
     ledge.scale.setTo(1, 0.5);
     ledge.body.immovable = true;
-    ledge = curr_scene.platforms.create(200, 375 - 50, 'ground');
+    ledge = curr_scene.platforms.create(200, 375 - 75, 'ground');
     ledge.scale.setTo(1, 0.5);
     ledge.body.immovable = true;
     var ledge = curr_scene.platforms.create(0, 475 - 50, 'ground');
@@ -88,8 +88,14 @@ function create() {
 
     // var silverNug = gems.create(game.world.width, 370, 'silverNugget');
     // var goldNug = gems.create(game.world.width, 370, 'goldNugget');
-    var diamond = curr_scene.gems.create(150, game.world.height - 200, 'diamond');
+    var diamond = curr_scene.gems.create(550, game.world.height - 200, 'diamond');
     diamond.body.immovable = true;
+
+    var silverNug = curr_scene.gems.create(310, game.world.height - 325, 'silverNugget');
+    silverNug.body.immovable = true;
+
+    var goldNug = curr_scene.gems.create(400, game.world.height-100, 'goldNugget');
+    goldNug.body.immovable = true;
 
     var single = curr_scene.spikes.create(0, game.world.height - 56, 'singleSpike');
     single.body.immovable = true;
@@ -98,9 +104,19 @@ function create() {
     double.body.immovable = true;
     double.scale.setTo(0.5, 0.5);
 
-    double = curr_scene.spikes.create(200, game.world.height - 200, 'doubleSpikes');
+    double = curr_scene.spikes.create(310, game.world.height - 260, 'doubleSpikes');
     double.body.immovable = true;
     double.scale.setTo(0.5, 0.5);
+    double.rotation = 3.14;
+
+    double = curr_scene.spikes.create(450, game.world.height - 200, 'doubleSpikes');
+    double.body.immovable = true;
+    double.scale.setTo(0.5, 0.5);
+
+
+    
+
+
 
 
     // double.rotation = 3.14;
@@ -146,6 +162,10 @@ function create() {
 
     var silverNug = curr_scene.gems.create(ledge1.body.x + ledge1.body.width/2, ledge1.body.y - 20, 'silverNugget');
     silverNug.body.immovable = true;
+
+
+
+ 
 
     var single = curr_scene.spikes.create(0, game.world.height - 56, 'singleSpike');
     single.body.immovable = true;
@@ -203,7 +223,7 @@ function update() {
     // Allow the player to jump if they are touching the ground.
     if (keys.spacebar.isDown && player.body.touching.down)
     {
-        player.body.velocity.y = -550;
+        player.body.velocity.y = -530;
         playerJumped = true;
         numJumps += 1;
     } else if (keys.spacebar.isDown && playerJumped) {
@@ -247,7 +267,7 @@ function handleDeath (player, spike) {
     game.paused = true;
     keys.spacebar.onDown.add(() => {
         //  window.location.replace('https://www.capitalone.com/')
-        window.location.replace('http://localhost:8000/Desktop/Carbon2017/CapitalJuan/')
+        window.location.replace('http://localhost:8000')
     }, this);
 }
 
