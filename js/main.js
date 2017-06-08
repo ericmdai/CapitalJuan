@@ -82,9 +82,8 @@ function create() {
     ledge.body.immovable = true;
     curr_scene.platforms.enableBody = true;
 
-    // curr_scene.platforms.width = curr_scene.platforms.children.reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0) ;
-    buildMoney(3, 200, 375 - 90, 1, 0.5, 'money1');
-
+ 
+    createMoney(3, 200, 375 - 50, 1, 0.5, 'money1');
 
     // var silverNug = gems.create(game.world.width, 370, 'silverNugget');
     // var goldNug = gems.create(game.world.width, 370, 'goldNugget');
@@ -332,10 +331,21 @@ function post_data() {
     xhr.send(JSON.stringify(collected));
 }
 
-function buildMoney(length, x, y, widthMod, heightMod, type) {
+function createMoney(length, x, y, widthMod, heightMod, type) {
     for(var i = 0; i < length; i++) {
         ledge = curr_scene.platforms.create(x + (127 * i * widthMod), y, type);
         ledge.scale.setTo(widthMod, heightMod);
         ledge.body.immovable = true;
     }
+}
+
+function createGems(length, x, y, type) {
+    gem = curr_scene.gems.create(x + widthMod, y, type);
+    gem.body.immovable = true;
+}
+
+function createSpikes(length, x, y, widthMod, heightMod, type) {
+    gem = curr_scene.spikes.create(x + widthMod, y, type);
+    spikes.scale.setTo(widthMod, heightMod);
+    spikes.body.immovable = true;
 }
