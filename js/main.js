@@ -79,14 +79,14 @@ function create() {
     curr_scene.platforms.enableBody = true;
 
  
-    createMoney(3, 200, 375 - 50, 1, 0.5, 'money1');
+    createMoney(3, 200, 375 - 95, 1, 0.5, 'money1');
 
     // var silverNug = gems.create(game.world.width, 370, 'silverNugget');
     // var goldNug = gems.create(game.world.width, 370, 'goldNugget');
     var diamond = curr_scene.gems.create(550, game.world.height - 200, 'diamond');
     diamond.body.immovable = true;
 
-    var silverNug = curr_scene.gems.create(310, game.world.height - 335, 'silverNugget');
+    var silverNug = curr_scene.gems.create(310, game.world.height - 345, 'silverNugget');
     silverNug.body.immovable = true;
 
     var goldNug = curr_scene.gems.create(400, game.world.height-100, 'goldNugget');
