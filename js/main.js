@@ -322,12 +322,12 @@ function createMoney(length, x, y, widthMod, heightMod, type) {
     }
 }
 
-function createGems(length, x, y, type) {
+function createGem(x, y, type) {
     gem = curr_scene.gems.create(x + widthMod, y, type);
     gem.body.immovable = true;
 }
 
-function createSpikes(length, x, y, widthMod, heightMod, type) {
+function createSpike(x, y, widthMod, heightMod, type) {
     gem = curr_scene.spikes.create(x + widthMod, y, type);
     spikes.scale.setTo(widthMod, heightMod);
     spikes.body.immovable = true;
