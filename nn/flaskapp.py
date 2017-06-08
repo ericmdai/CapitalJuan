@@ -19,7 +19,7 @@ def receive_data():
         return jsonify({"bad request"})
 
     content = request.get_json()
-    index = runNN(content["jumps"], content["silver"], content["gold"], content["diamonds"])
+    index = runNN(content["jumps"], content["silver"], content["gold"], content["diamond"])
     print index
     return jsonify({"index": str(index)})
 
