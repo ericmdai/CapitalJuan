@@ -23,6 +23,9 @@ var gems;
 var spikes;
 var spacebar;
 
+var playerJumped = false;
+var globalGravity = 1500;
+
 var score = 0;
 var scoreText;
 var gameOverText;
@@ -70,7 +73,7 @@ function create() {
     quad.body.immovable = true;
     quad.scale.setTo(0.5, 0.5);
 
-    player = game.add.sprite(32, game.world.height - 150, 'dude');
+    player = game.add.sprite(32, ground.y - ground.height + 10, 'dude');
     game.physics.arcade.enable(player);
 
     player.body.gravity.y = 900;
@@ -125,15 +128,22 @@ function update() {
     // player.body.velocity.x = 0;
     player.animations.play('right');
 
+
     //  Allow the player to jump if they are touching the ground.
     if (spacebar.isDown && player.body.touching.down)
     {
-        player.body.velocity.y = -550;
+        player.body.velocity.y = -450;
+        playerJumped = true;
+    } else if (spacebar.isDown && playerJumped) {
+        player.body.gravity.y = globalGravity - 700;
+    } else {
+        playerJumped = false;
+        player.body.gravity.y = globalGravity;
     }
 
 }
 
-function collectGem (player, gem) {
+function collectGem(player, gem) {
 
     console.log(gem);
 
@@ -156,6 +166,6 @@ function handleDeath (player, spike) {
     game.add.text(75, 240, 'Press the Space Key to return to your session:', { fontSize: '30px', fill: '#000' });
     game.paused = true;
     spacebar.onDown.add(() => {
-        window.location.replace('https://www.capitalone.com/')    
+        //window.location.replace('https://www.capitalone.com/')    
     }, this);
 }
