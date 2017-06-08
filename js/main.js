@@ -74,30 +74,17 @@ function create() {
 
     curr_scene.platforms.enableBody = true;
 
-    var diamond = curr_scene.gems.create(550, game.world.height - 200, 'diamond');
-    diamond.body.immovable = true;
+    // var diamond = curr_scene.gems.create(550, game.world.height - 200, 'diamond');
+    // diamond.body.immovable = true;
 
-    var silverNug = curr_scene.gems.create(310, game.world.height - 345, 'silverNugget');
-    silverNug.body.immovable = true;
+    createGem(550, game.world.height - 200, 'diamond');
+    createGem(310, game.world.height - 345, 'silverNugget');
+    createGem(400, game.world.height-100, 'goldNugget');
 
-    var goldNug = curr_scene.gems.create(400, game.world.height-100, 'goldNugget');
-    goldNug.body.immovable = true;
-
-    var single = curr_scene.spikes.create(0, game.world.height - 56, 'singleSpike');
-    single.body.immovable = true;
-    single.scale.setTo(0.5, 0.5);
-    var double = curr_scene.spikes.create(100, game.world.height - 200, 'doubleSpikes');
-    double.body.immovable = true;
-    double.scale.setTo(0.5, 0.5);
-
-    double = curr_scene.spikes.create(310, game.world.height - 260, 'doubleSpikes');
-    double.body.immovable = true;
-    double.scale.setTo(0.5, 0.5);
-    double.rotation = 3.14;
-
-    double = curr_scene.spikes.create(450, game.world.height - 200, 'doubleSpikes');
-    double.body.immovable = true;
-    double.scale.setTo(0.5, 0.5);
+    createSpike(0, game.world.height - 56, 0.5, 0.5, 'singleSpike', 0);
+    createSpike(100, game.world.height - 200, 0.5, 0.5, 'doubleSpikes', 0);
+    createSpike(310, game.world.height - 260, 0.5, 0.5, 'doubleSpikes', 3.14);
+    createSpike(450, game.world.height - 200, 0.5, 0.5, 'doubleSpikes', 0)
 
     curr_scene.width = [curr_scene.platforms.children, curr_scene.gems.children, curr_scene.spikes.children].reduce(function (a, b) {
         return a.concat( b );
@@ -284,8 +271,6 @@ function addScene() {
 
             post_data();
         }
-
-        
     };
 
     return scene;
@@ -323,12 +308,18 @@ function createMoney(length, x, y, widthMod, heightMod, type) {
 }
 
 function createGem(x, y, type) {
-    gem = curr_scene.gems.create(x, y, type);
+    gem = curr_scene.gems.create(x + randomInt(-100, 100), y, type);
     gem.body.immovable = true;
 }
 
-function createSpike(x, y, widthMod, heightMod, type) {
-    gem = curr_scene.spikes.create(x, y, type);
-    spikes.scale.setTo(widthMod, heightMod);
-    spikes.body.immovable = true;
+function createSpike(x, y, widthMod, heightMod, type, rotateVal) {
+    spike = curr_scene.spikes.create(x + randomInt(-50, 50) , y, type);
+    spike.scale.setTo(widthMod, heightMod);
+    spike.body.immovable = true;
+    spike.rotation = rotateVal;
+}
+
+function randomInt(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
 }
