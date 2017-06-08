@@ -30,6 +30,14 @@ var score = 0;
 var scoreText;
 var gameOverText;
 
+var collected = {
+    'silver': 0,
+    'gold': 0,
+    'diamond': 0
+}
+
+var numJumps = 0;
+
 function create() {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -134,6 +142,7 @@ function update() {
     {
         player.body.velocity.y = -450;
         playerJumped = true;
+        numJumps += 1;
     } else if (spacebar.isDown && playerJumped) {
         player.body.gravity.y = globalGravity - 700;
     } else {
@@ -149,10 +158,15 @@ function collectGem(player, gem) {
 
     if (gem.key === "silverNugget") {
         score += 1;
+        collected.silver += 1;
     } else if (gem.key === "goldNugget") {
         score += 3;
+        collected.gold += 1;
+
     } else {
         score += 5;
+        collected.diamond += 1;
+
     }
 
     scoreText.text = 'Score: ' + score;
@@ -161,6 +175,8 @@ function collectGem(player, gem) {
 }
 
 function handleDeath (player, spike) {
+
+    console.log('num jumps: ' + numJumps + '\n num silver: ' + collected.silver + '\n num gold: ' + collected.gold + '\n num diamond: ' + collected.diamond);
 
     game.add.text(310, 180, 'Game Over', { fontSize: '30px', fill: '#000' });
     game.add.text(75, 240, 'Press the Space Key to return to your session:', { fontSize: '30px', fill: '#000' });
