@@ -76,11 +76,9 @@ function update() {
     if (min_pos <= -curr_scene.width) {
         console.log('RESET');
         // TODO: Hide and reset current scene
-        curr_scene.forEach((scene_object) => scene_object.x -= min_pos*1.5);
-        console.log(curr_scene.children.reduce((acc, curr) => Math.min(acc, curr.x), game.world.width));
-    //     curr_scene = scenes[0]; // TODO: Pick a random scene
-        // curr_scene.forEach((scene_object) => scene_object.x += game.world.width);
-        console.log(curr_scene.children.reduce((acc, curr) => Math.min(acc, curr.x), game.world.width));
+        curr_scene.forEach((scene_object) => scene_object.x -= min_pos);
+        curr_scene = scenes[0c]; // TODO: Pick a random scene
+        curr_scene.forEach((scene_object) => scene_object.x += game.world.width);
     }
 
     // Reset the players velocity (movement)
