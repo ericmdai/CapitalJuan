@@ -1,13 +1,16 @@
 from flask import Flask, Response, jsonify, request
 from flask_cors import CORS, cross_origin
+
+from riskNet import *
+
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-@app.route('/hello', methods=['GET'])
+@app.route('/hello/', methods=['GET'])
 @cross_origin()
 def hello_world():
-    return jsonify({"hello": "world"})
+    return jsonify("Hello World")
 
 @app.route('/test/', methods=['POST'])
 @cross_origin(origin='localhost',headers=['Content- Type','application/json'])
@@ -16,8 +19,8 @@ def receive_data():
         return jsonify({"bad request"})
 
     content = request.get_json()
-    print content
-    return jsonify(content)
+    index = runNN(content["jumps"], content["silver"], content["gold"], content["diamonds"])
+    return jsonify(index)
 
 
 def main():
