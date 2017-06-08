@@ -20,17 +20,13 @@ var score = 0;
 var scoreText;
 var gameOverText;
 
-var collected = {
+var data = {
     'silver': 0,
     'gold': 0,
-    'diamond': 0
+    'diamond': 0,
+    'jumps': 0
 }
-
-var numJumps = 0;
-
 var keys = {};
-
-var oldGemXPos = 0;
 
 function preload() {
     // Preload assets
@@ -224,7 +220,7 @@ function update() {
     {
         player.body.velocity.y = -530;
         playerJumped = true;
-        numJumps += 1;
+        data.jumps += 1;
     } else if (keys.spacebar.isDown && playerJumped) {
         player.body.gravity.y = globalGravity - 700;
     } else {
@@ -239,16 +235,16 @@ function collectGem(player, gem) {
         if (gem.key === "silverNugget") {
             gem.visible = false;
             score += 1;
-            collected.silver += 1;
+            data.silver += 1;
         } else if (gem.key === "goldNugget") {
             gem.visible = false;
             score += 3;
-            collected.gold += 1;
+            data.gold += 1;
 
         } else {
             gem.visible = false;
             score += 5;
-            collected.diamond += 1;
+            data.diamond += 1;
         }
         scoreText.text = 'Score: ' + score;
 
@@ -259,7 +255,7 @@ function collectGem(player, gem) {
 
 function handleDeath (player, spike) {
 
-    console.log('num jumps: ' + numJumps + '\n num silver: ' + collected.silver + '\n num gold: ' + collected.gold + '\n num diamond: ' + collected.diamond);
+    console.log('num jumps: ' + data.jumps + '\n num silver: ' + data.silver + '\n num gold: ' + data.gold + '\n num diamond: ' + data.diamond);
 
     game.add.text(310, 180, 'Game Over', { fontSize: '30px', fill: '#000' });
     game.add.text(75, 240, 'Press the Space Key to return to your session:', { fontSize: '30px', fill: '#000' });
@@ -328,7 +324,7 @@ function post_data() {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", game_config.server_url);
     xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
-    xhr.send(JSON.stringify(collected));
+    xhr.send(JSON.stringify(data));
 }
 
 function createMoney(length, x, y, widthMod, heightMod, type) {
