@@ -7,6 +7,7 @@ var player;
 
 var game_config = {
     speed: 5,
+    server_url: 'http://127.0.0.1:8001/test/',
 };
 
 var gems;
@@ -71,7 +72,6 @@ function create() {
     curr_scene = scenes[0];
 
     var ledge = curr_scene.platforms.create(0, 475 - 50, 'ground');
-
     ledge.scale.setTo(1, 0.5);
     ledge.body.immovable = true;
     ledge = curr_scene.platforms.create(200, 375 - 75, 'ground');
@@ -84,7 +84,7 @@ function create() {
 
     // curr_scene.platforms.width = curr_scene.platforms.children.reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0) ;
 
-
+    buildMoney(3, 200, 375 - 50, 1, 0.5);
 
     // var silverNug = gems.create(game.world.width, 370, 'silverNugget');
     // var goldNug = gems.create(game.world.width, 370, 'goldNugget');
@@ -141,7 +141,7 @@ function create() {
     var ledge1 = curr_scene.platforms.create(0, 475, 'ground');
     ledge1.scale.setTo(1, 0.5);
     ledge1.body.immovable = true;
-    
+
     ledge2 = curr_scene.platforms.create(ledge1.body.x + ledge1.body.width + 50, 475, 'ground');
     ledge2.scale.setTo(1, 0.5);
     ledge2.body.immovable = true;
@@ -269,6 +269,8 @@ function handleDeath (player, spike) {
         //  window.location.replace('https://www.capitalone.com/')
         window.location.replace('http://localhost:8000')
     }, this);
+
+    post_data();
 }
 
 function addScene() {
@@ -289,7 +291,7 @@ function addScene() {
     scene.moveLeft = function() {
         this.platforms.forEach((platform) => platform.body.x -= game_config.speed);
         this.gems.forEach((gem) => gem.body.x -= game_config.speed);
-        this.spikes.forEach((spike) => spike.body.x -= game_config.speed); 
+        this.spikes.forEach((spike) => spike.body.x -= game_config.speed);
     };
 
     scene.checkOver = function() {
@@ -317,6 +319,23 @@ function checkOverEach(min_pos, scene_component, scene){
 
         curr_scene = scenes[Math.floor(Math.random() * scenes.length)];
         curr_scene.moveRight();
-    }
 
+        post_data();
+    }
+}
+
+function post_data() {
+    // Send post request to remote server
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", game_config.server_url);
+    xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+    xhr.send(JSON.stringify(collected));
+}
+
+function buildMoney(length, x, y, widthMod, heightMod) {
+    for(var i = 0; i < length; i++) {
+        ledge = curr_scene.platforms.create(x + (127 * i * widthMod), y, 'money1');
+        ledge.scale.setTo(widthMod, heightMod);
+        ledge.body.immovable = true;
+    }
 }
