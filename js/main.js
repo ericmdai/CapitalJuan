@@ -71,19 +71,12 @@ function create() {
     curr_scene = scenes[0];
 
     var ledge = curr_scene.platforms.create(0, 475 - 50, 'ground');
-
-    ledge.scale.setTo(1, 0.5);
-    ledge.body.immovable = true;
-    ledge = curr_scene.platforms.create(200, 375 - 50, 'ground');
-    ledge.scale.setTo(1, 0.5);
-    ledge.body.immovable = true;
-    var ledge = curr_scene.platforms.create(0, 475 - 50, 'ground');
     ledge.body.immovable = true;
     curr_scene.platforms.enableBody = true;
 
     // curr_scene.platforms.width = curr_scene.platforms.children.reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0) ;
 
-
+    buildMoney(3, 200, 375 - 50);
 
     // var silverNug = gems.create(game.world.width, 370, 'silverNugget');
     // var goldNug = gems.create(game.world.width, 370, 'goldNugget');
@@ -298,4 +291,12 @@ function checkOverEach(min_pos, scene_component, scene){
         curr_scene.moveRight();
     }
 
+}
+
+function buildMoney(length, x, y) {
+    for(var i = 0; i < length; i++) {
+        ledge = curr_scene.platforms.create(x + (127 * i), y, 'money1');
+        ledge.scale.setTo(1, 0.5);
+        ledge.body.immovable = true;
+    }
 }
