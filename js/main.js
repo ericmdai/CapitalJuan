@@ -149,6 +149,12 @@ function create() {
     createMoney(3, game.world.length*3/4 + 500, game.world.height/4, 0.5, 0.5, 'money1');
 
 
+    createSpike(game.world.length/4 + 330, 3/4*game.world.height - 175, 0.5,0.5, 'tripleSpikes', 0);
+    createSpike(game.world.length*3/4 + 575, game.world.height/4 - 25, 0.5,0.5, 'singleSpike', 0);
+
+    createGem(game.world.length/4 + 425, 3/4*game.world.height - 200, 'goldNugget');
+    createGem(game.world.length*3/4 + 650, game.world.height/4 - 50, 'diamond');
+
     curr_scene.width = [curr_scene.platforms.children, curr_scene.gems.children, curr_scene.spikes.children].reduce(function (a, b) {
         return a.concat( b );
     }, []).reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0);
@@ -325,7 +331,7 @@ function createMoney(length, x, y, widthMod, heightMod, type) {
 }
 
 function createGem(x, y, type) {
-    gem = curr_scene.gems.create(x + randomInt(-100, 100), y, type);
+    gem = curr_scene.gems.create(x + randomInt(-50, 50), y, type);
     gem.body.immovable = true;
 }
 
