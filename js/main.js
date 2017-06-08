@@ -20,6 +20,8 @@ var score = 0;
 var scoreText;
 var gameOverText;
 
+var sceneIdx = 0;
+
 var data = {
     'silver': 0,
     'gold': 0,
@@ -67,22 +69,11 @@ function create() {
     scenes.push(addScene());
     curr_scene = scenes[0];
 
-    var ledge = curr_scene.platforms.create(0, 475 - 50, 'ground');
-    ledge.scale.setTo(1, 0.5);
-    ledge.body.immovable = true;
-    // ledge = curr_scene.platforms.create(200, 375 - 75, 'ground');
-    ledge.scale.setTo(1, 0.5);
-    ledge.body.immovable = true;
-    var ledge = curr_scene.platforms.create(0, 475 - 50, 'ground');
-    ledge.scale.setTo(2,0.5);
-    ledge.body.immovable = true;
+    createMoney(3, 200, 375 - 95, 1, 0.5, 'money1');
+    createMoney(4, 0, 475 - 50, 1, 0.5, 'money1');
+
     curr_scene.platforms.enableBody = true;
 
- 
-    createMoney(3, 200, 375 - 95, 1, 0.5, 'money1');
-
-    // var silverNug = gems.create(game.world.width, 370, 'silverNugget');
-    // var goldNug = gems.create(game.world.width, 370, 'goldNugget');
     var diamond = curr_scene.gems.create(550, game.world.height - 200, 'diamond');
     diamond.body.immovable = true;
 
@@ -108,20 +99,6 @@ function create() {
     double.body.immovable = true;
     double.scale.setTo(0.5, 0.5);
 
-
-    
-
-
-
-
-    // double.rotation = 3.14;
-    // var triple = curr_scene.spikes.create(game.world.width - 120, game.world.height - 90, 'tripleSpikes');
-    // triple.body.immovable = true;
-    // triple.scale.setTo(0.5, 0.5);
-    // var quad = curr_scene.spikes.create(game.world.width - 60, game.world.height - 90, 'quadSpikes');
-    // quad.body.immovable = true;
-    // quad.scale.setTo(0.5, 0.5);
-
     curr_scene.width = [curr_scene.platforms.children, curr_scene.gems.children, curr_scene.spikes.children].reduce(function (a, b) {
         return a.concat( b );
     }, []).reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0);
@@ -136,6 +113,8 @@ function create() {
     var ledge1 = curr_scene.platforms.create(0, 475, 'ground');
     ledge1.scale.setTo(1, 0.5);
     ledge1.body.immovable = true;
+
+    //createMoney(3, 0, 475, 0.5, 1, 'money1');
 
     ledge2 = curr_scene.platforms.create(ledge1.body.x + ledge1.body.width + 50, 475, 'ground');
     ledge2.scale.setTo(1, 0.5);
@@ -165,15 +144,6 @@ function create() {
     var single = curr_scene.spikes.create(0, game.world.height - 56, 'singleSpike');
     single.body.immovable = true;
     single.scale.setTo(0.5, 0.5);
-    // var double = curr_scene.spikes.create(100, game.world.height - 150, 'doubleSpikes');
-    // double.body.immovable = true;
-    // double.scale.setTo(0.5, 0.5);
-    // var triple = curr_scene.spikes.create(game.world.width - 120, game.world.height - 90, 'tripleSpikes');
-    // triple.body.immovable = true;
-    // triple.scale.setTo(0.5, 0.5);
-    // var quad = curr_scene.spikes.create(game.world.width - 60, game.world.height - 90, 'quadSpikes');
-    // quad.body.immovable = true;
-    // quad.scale.setTo(0.5, 0.5);
 
     curr_scene.width = [curr_scene.platforms.children, curr_scene.gems.children, curr_scene.spikes.children].reduce(function (a, b) {
         return a.concat( b );
@@ -198,6 +168,11 @@ function create() {
     keys.spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
 }
+
+
+
+
+
 
 function update() {
     // Collide the player and the stars with the current scene
@@ -295,9 +270,22 @@ function addScene() {
         var min_pos_spike = this.spikes.children.reduce((acc, curr) => Math.min(acc, curr.x), game.world.width);
         var min_pos = Math.min(min_pos_platform, Math.min(min_pos_gem, min_pos_spike));
 
-        checkOverEach(min_pos, this.platforms, this);
-        checkOverEach(min_pos, this.gems, this);
-        checkOverEach(min_pos, this.spikes, this);
+        if (min_pos <= -scene.width) {
+            checkOverEach(min_pos, this.platforms, this);
+            checkOverEach(min_pos, this.gems, this);
+            checkOverEach(min_pos, this.spikes, this);
+
+            sceneIdx += 1;
+            console.log(sceneIdx);
+            sceneIdx %= scenes.length;
+            console.log(sceneIdx);
+
+            curr_scene = scenes[sceneIdx];
+
+            post_data();
+        }
+
+        
     };
 
     return scene;
@@ -312,10 +300,9 @@ function checkOverEach(min_pos, scene_component, scene){
         // TODO: Respawn coins and shit
         scene_component.forEach((scene_object) => scene_object.reset(scene_object.x + game.world.width, scene_object.y));
 
-        curr_scene = scenes[Math.floor(Math.random() * scenes.length)];
-        curr_scene.moveRight();
-
-        post_data();
+        // var blah = Math.floor(Math.random() * scenes.legnth);
+        // console.log(blah);
+        
     }
 }
 
