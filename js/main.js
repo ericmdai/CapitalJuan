@@ -77,9 +77,10 @@ function update() {
         console.log('RESET');
         // Reset current scene
         curr_scene.forEach((scene_object) => scene_object.x -= min_pos);
+        // TODO: Respawn coins and shit
 
         curr_scene = scenes[0]; // TODO: Pick a random scene
-        curr_scene.forEach((scene_object) => scene_object.x += game.world.width);
+        curr_scene.forEach((scene_object) => scene_object.reset(scene_object.x + game.world.width, scene_object.y));
     }
 
     // Reset the players velocity (movement)
