@@ -78,6 +78,7 @@ function create() {
     ledge.scale.setTo(1, 0.5);
     ledge.body.immovable = true;
     var ledge = curr_scene.platforms.create(0, 475 - 50, 'ground');
+    ledge.scale.setTo(2,0.5);
     ledge.body.immovable = true;
     curr_scene.platforms.enableBody = true;
 
