@@ -324,6 +324,13 @@ function post_data() {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", game_config.server_url);
     xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+
+    xhr.onreadystatechange = function() { //Call a function when the state changes.
+        if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+            console.log(xhr.response);
+        }
+    }
+
     xhr.send(JSON.stringify(data));
 }
 
