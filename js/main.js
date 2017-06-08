@@ -7,6 +7,7 @@ var player;
 
 var game_config = {
     speed: 5,
+    server_url: 'http://127.0.0.1:8001/test/',
 };
 
 var gems;
@@ -298,20 +299,10 @@ function checkOverEach(min_pos, scene_component, scene){
 
 function post_data() {
     // Send post request to remote server
-    console.log("Sending request to server");
-
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://127.0.0.1:8001/test/");
+    xhr.open("POST", game_config.server_url);
     xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
-    // xhr.onreadystatechange = function () {
-    //     if (xhr.readyState === 4 && xhr.status === 200) {
-    //         var json = JSON.parse(xhr.responseText);
-    //         console.log(json.email + ", " + json.password);
-    //     }
-    // };
-    var data = JSON.stringify(collected);
-    console.log(data);
-    xhr.send(data);
+    xhr.send(JSON.stringify(collected));
 }
 
 function buildMoney(length, x, y) {
