@@ -150,9 +150,26 @@ function create() {
     }, []).reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0);
     curr_scene.moveRight();
 
+    // Scene 2
+
+    scenes.push(addScene());
+    curr_scene = scenes[2];
+
+    // function createMoney(length, x, y, widthMod, heightMod, type)
+
+    createMoney(10, game.world.length/4, 3/4*game.world.height, 0.5, 0.5, 'money1');
+    createMoney(3, game.world.length/4 + 200, 3/4*game.world.height - 150, 0.5, 0.5, 'money1');
+    createMoney(3, game.world.length*3/4 + 500, game.world.height/4, 0.5, 0.5, 'money1');
+
+
+    curr_scene.width = [curr_scene.platforms.children, curr_scene.gems.children, curr_scene.spikes.children].reduce(function (a, b) {
+        return a.concat( b );
+    }, []).reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0);
+    curr_scene.moveRight();
+
 
     // First scene to be shown
-    curr_scene = scenes[0];
+    curr_scene = scenes[2];
     curr_scene.moveRight();
 
 
