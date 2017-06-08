@@ -81,7 +81,7 @@ function create() {
     createGem(310, game.world.height - 345, 'silverNugget');
     createGem(400, game.world.height-100, 'goldNugget');
 
-    createSpike(0, game.world.height - 56, 0.5, 0.5, 'singleSpike', 0);
+    // createSpike(0, game.world.height - 56, 0.5, 0.5, 'singleSpike', 0);
     createSpike(100, game.world.height - 200, 0.5, 0.5, 'doubleSpikes', 0);
     createSpike(310, game.world.height - 260, 0.5, 0.5, 'doubleSpikes', 3.14);
     createSpike(450, game.world.height - 200, 0.5, 0.5, 'doubleSpikes', 0)
@@ -162,7 +162,7 @@ function create() {
 
 
     // First scene to be shown
-    curr_scene = scenes[2];
+    curr_scene = scenes[0];
     curr_scene.moveRight();
 
 
