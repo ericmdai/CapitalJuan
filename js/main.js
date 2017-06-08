@@ -43,6 +43,8 @@ function preload() {
     game.load.image('doubleSpikes', 'assets/game/spikes2.png');
     game.load.image('tripleSpikes', 'assets/game/spikes3.png');
     game.load.image('quadSpikes', 'assets/game/spikes4.png');
+    game.load.image('money1', 'assets/game/money1.png');
+    game.load.image('money2', 'assets/game/money2.png');
     game.load.spritesheet('dude', 'assets/game/slj_head_bob_sprite.png', 32, 58);
 }
 
