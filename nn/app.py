@@ -7,10 +7,10 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-@app.route('/hello', methods=['GET'])
+@app.route('/hello/', methods=['GET'])
 @cross_origin()
 def hello_world():
-    return jsonify({"hello": "world"})
+    return jsonify("Hello World")
 
 @app.route('/test/', methods=['POST'])
 @cross_origin(origin='localhost',headers=['Content- Type','application/json'])
