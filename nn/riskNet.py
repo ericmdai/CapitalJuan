@@ -7,6 +7,20 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 ''' creating pseudo-random data '''
 from random import randint
 
+def init_weights(shape):
+    return tf.Variable(tf.random_normal(shape, stddev=0.01))
+    # self.W1 = np.random.randn(self.inputLayerSize, self.hiddenLayerSize)
+    # self.W2 = np.random.randn(self.hiddenLayerSize, self.outputLayerSize)
+
+def model(X, w_h, w_o):
+	z2 = tf.matmul(X, w_h)
+	a2 = tf.nn.sigmoid(z2)
+	z3 = tf.matmul(a2, w_o)
+	yhat = tf.nn.sigmoid(z3)
+	print(z3)
+	print(yhat)
+	return yhat
+
 ti = []
 ta = []
 for i in range(0,500):
@@ -72,26 +86,12 @@ while abs(final - initial) > 0.0001:
 	print( abs(final-initial) )
 '''
 
-def init_weights(shape):
-    return tf.Variable(tf.random_normal(shape, stddev=0.01))
-    # self.W1 = np.random.randn(self.inputLayerSize, self.hiddenLayerSize)
-    # self.W2 = np.random.randn(self.hiddenLayerSize, self.outputLayerSize)
-
-def model(X, w_h, w_o):
-	z2 = tf.matmul(X, w_h)
-	a2 = tf.nn.sigmoid(z2)
-	z3 = tf.matmul(a2, w_o)
-	yhat = tf.nn.sigmoid(z3)
-	print(z3)
-	print(yhat)
-	return yhat
-
 def runNN(jumps, silver, gold, diamonds):
 	teX = np.matrix(([jumps,silver,gold,diamonds]))
 	teY = np.matrix(([0])) # doesn't matter lol
 	teX = teX/np.amax(teX, axis=0)
 	teY = teY/100
-	return sess.run(predict_op, feed_dict={X: teX})
+	return sess.run(predict_op, feed_dict={X: teX})[0,0]
 
 # print(runNN(5,5,5,5))
 
