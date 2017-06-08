@@ -240,7 +240,7 @@ function update() {
 
 
     // Allow the player to jump if they are touching the ground.
-    if (keys.spacebar.isDown && player.body.touching.down)
+    if ((keys.spacebar.isDown || game.input.pointer1.isDown) && player.body.touching.down)
     {
         player.body.velocity.y = -530;
         playerJumped = true;
@@ -285,8 +285,8 @@ function handleDeath (player, spike) {
     game.add.text(75, 240, 'Press the Space Key to return to your session:', { fontSize: '30px', fill: '#000' });
     game.paused = true;
     keys.spacebar.onDown.add(() => {
-        //  window.location.replace('https://www.capitalone.com/')
-        window.location.replace('http://localhost:8000')
+        window.location.replace('https://www.capitalone.com/')
+        //window.location.replace('http://localhost:8000')
     }, this);
 
     post_data();
