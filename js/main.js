@@ -93,12 +93,12 @@ function create() {
     // var double = curr_scene.spikes.create(game.world.width - 170, game.world.height - 90, 'doubleSpikes');
     // double.body.immovable = true;
     // double.scale.setTo(0.5, 0.5);
-    var triple = curr_scene.spikes.create(game.world.width - 120, game.world.height - 90, 'tripleSpikes');
-    triple.body.immovable = true;
-    triple.scale.setTo(0.5, 0.5);
-    var quad = curr_scene.spikes.create(game.world.width - 60, game.world.height - 90, 'quadSpikes');
-    quad.body.immovable = true;
-    quad.scale.setTo(0.5, 0.5);
+    // var triple = curr_scene.spikes.create(game.world.width - 120, game.world.height - 90, 'tripleSpikes');
+    // triple.body.immovable = true;
+    // triple.scale.setTo(0.5, 0.5);
+    // var quad = curr_scene.spikes.create(game.world.width - 60, game.world.height - 90, 'quadSpikes');
+    // quad.body.immovable = true;
+    // quad.scale.setTo(0.5, 0.5);
 
     player = game.add.sprite(100, ground.y - ground.height - 25, 'dude');
     game.physics.arcade.enable(player);
