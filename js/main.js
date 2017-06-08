@@ -101,6 +101,7 @@ function create() {
     createSpike(100, game.world.height - 200, 0.5, 0.5, 'doubleSpikes', 0);
     createSpike(310, game.world.height - 260, 0.5, 0.5, 'doubleSpikes', 3.14);
     createSpike(450, game.world.height - 200, 0.5, 0.5, 'doubleSpikes', 0)
+    createSpike(100,game.world.height - 58,0.5,0.5,'doubleSpikes');
 
     curr_scene.width = [curr_scene.platforms.children, curr_scene.gems.children, curr_scene.spikes.children].reduce(function (a, b) {
         return a.concat( b );
@@ -108,55 +109,77 @@ function create() {
     curr_scene.moveRight();
 
 
+    //START CUT
     // Scene 1
-
     scenes.push(addScene());
-    curr_scene = scenes[1];
+    scenes.push(addScene());
 
-    var ledge1 = curr_scene.platforms.create(0, 475, 'ground');
-    ledge1.scale.setTo(1, 0.5);
-    ledge1.body.immovable = true;
+    curr_scene = scenes[2];
+    var stepSize = 265/2;
+    var start = 415;
+    createMoney(3,0,start,1,0.5,'money1');
+    createMoney(3, 300, start - stepSize, 1, 0.5, 'money1');
+    createMoney(3,550,start - 2*stepSize - 25,1,0.5,'money1');
 
-    //createMoney(3, 0, 475, 0.5, 1, 'money1');
-
-    ledge2 = curr_scene.platforms.create(ledge1.body.x + ledge1.body.width + 50, 475, 'ground');
-    ledge2.scale.setTo(1, 0.5);
-    ledge2.body.immovable = true;
-
-    ledge3 = curr_scene.platforms.create(ledge1.body.x + 3/4*ledge1.body.width, 375, 'ground');
-    ledge3.scale.setTo(1, 0.25)
-    ledge3.body.immovable = true;
     curr_scene.platforms.enableBody = true;
+    curr_scene.platforms.width = curr_scene.platforms.children.reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0) ;
 
-    // curr_scene.platforms.width = curr_scene.platforms.children.reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0) ;
+    //0th level
+    var double = curr_scene.spikes.create(0, game.world.height - 56, 'doubleSpikes');
+    double.body.immovable = true;
+    double.scale.setTo(0.5, 0.5);
 
-
-
-    // var silverNug = gems.create(game.world.width, 370, 'silverNugget');
-    // var goldNug = gems.create(game.world.width, 370, 'goldNugget');
-    var diamond = curr_scene.gems.create(ledge3.body.x + 3/4*ledge3.body.width, ledge3.body.y - 40, 'diamond');
-    diamond.body.immovable = true;
-
-    var silverNug = curr_scene.gems.create(ledge1.body.x + ledge1.body.width/2, ledge1.body.y - 20, 'silverNugget');
-    silverNug.body.immovable = true;
-
-
-
-
-
-    var single = curr_scene.spikes.create(0, game.world.height - 56, 'singleSpike');
+    var single = curr_scene.spikes.create(150, game.world.height - 56 - stepSize/2 -5 , 'singleSpike');
     single.body.immovable = true;
     single.scale.setTo(0.5, 0.5);
+    single.rotation = 3.14;
+
+    var goldGem = curr_scene.gems.create(200, game.world.height - 56, 'goldNugget');
+
+    var trips = curr_scene.spikes.create(240, game.world.height - 56, 'tripleSpikes');
+    trips.body.immovable = true;
+    trips.scale.setTo(0.5, 0.5);
+
+    //1st level
+    var triple= curr_scene.spikes.create(115, game.world.height - 56 - stepSize/2 - 88, 'tripleSpikes');
+    triple.body.immovable = true;
+    triple.scale.setTo(0.5, 0.5);
+
+    var silverGem = curr_scene.gems.create(225, game.world.height - 56 - stepSize/2 - 87, 'silverNugget');
+
+    //2nd Level
+    var quads = curr_scene.spikes.create(400, game.world.height - 56 - 2*stepSize - 23, 'quadSpikes');
+    quads.body.immovable = true;
+    quads.scale.setTo(0.5, 0.5);
+
+    var sings = curr_scene.spikes.create(625, game.world.height - 56 - 2*stepSize - 99, 'quadSpikes');
+    sings.body.immovable = true;
+    sings.scale.setTo(0.5, 0.4);
+    sings.rotation = 3.14
+
+    // var sings2 = curr_scene.spikes.create(555, game.world.height - 56 - 2*stepSize - 19, 'singleSpike');
+    // sings.body.immovable = true;
+    // sings2.scale.setTo(0.5, 0.4);
+
+    var sings3 = curr_scene.spikes.create(706, game.world.height - 56 - 2*stepSize + 5, 'singleSpike');
+    sings.body.immovable = true;
+    sings3.scale.setTo(0.5, 0.5);
+    sings3.rotation = 1.57;
+
+    var diam = curr_scene.gems.create(625, game.world.height - 56 - 2*stepSize - 23, 'diamond');
+
 
     curr_scene.width = [curr_scene.platforms.children, curr_scene.gems.children, curr_scene.spikes.children].reduce(function (a, b) {
         return a.concat( b );
     }, []).reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0);
     curr_scene.moveRight();
+
+//END CUT
 
     // Scene 2
 
-    scenes.push(addScene());
-    curr_scene = scenes[2];
+    //scenes.push(addScene());
+    curr_scene = scenes[1];
 
     // function createMoney(length, x, y, widthMod, heightMod, type)
 
@@ -165,7 +188,7 @@ function create() {
     createMoney(3, game.world.length*3/4 + 500, game.world.height/4, 0.5, 0.5, 'money1');
 
 
-    createSpike(game.world.length/4 + 330, 3/4*game.world.height - 175, 0.5,0.5, 'tripleSpikes', 0);
+    createSpike(game.world.length/4 + 300, 3/4*game.world.height - 175, 0.5,0.5, 'tripleSpikes', 0);
     createSpike(game.world.length*3/4 + 575, game.world.height/4 - 25, 0.5,0.5, 'singleSpike', 0);
 
     createGem(game.world.length/4 + 425, 3/4*game.world.height - 200, 'goldNugget');
