@@ -64,6 +64,7 @@ function create() {
 
     scenes = [];
 
+    // Scene 0
     scenes.push(addScene());
     curr_scene = scenes[0];
 
@@ -103,6 +104,61 @@ function create() {
         return a.concat( b );
     }, []).reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0);
     curr_scene.moveRight();
+
+
+    // Scene 1
+
+    scenes.push(addScene());
+    curr_scene = scenes[1];
+
+    var ledge1 = curr_scene.platforms.create(0, 475, 'ground');
+    ledge1.scale.setTo(1, 0.5);
+    ledge1.body.immovable = true;
+    
+    ledge2 = curr_scene.platforms.create(ledge1.body.x + ledge1.body.width + 50, 475, 'ground');
+    ledge2.scale.setTo(1, 0.5);
+    ledge2.body.immovable = true;
+
+    ledge3 = curr_scene.platforms.create(ledge1.body.x + 3/4*ledge1.body.width, 375, 'ground');
+    ledge3.scale.setTo(1, 0.25)
+    ledge3.body.immovable = true;
+    curr_scene.platforms.enableBody = true;
+
+    // curr_scene.platforms.width = curr_scene.platforms.children.reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0) ;
+
+
+
+    // var silverNug = gems.create(game.world.width, 370, 'silverNugget');
+    // var goldNug = gems.create(game.world.width, 370, 'goldNugget');
+    var diamond = curr_scene.gems.create(ledge3.body.x + 3/4*ledge3.body.width, ledge3.body.y - 40, 'diamond');
+    diamond.body.immovable = true;
+
+    var silverNug = curr_scene.gems.create(ledge1.body.x + ledge1.body.width/2, ledge1.body.y - 20, 'silverNugget');
+    silverNug.body.immovable = true;
+
+    var single = curr_scene.spikes.create(0, game.world.height - 56, 'singleSpike');
+    single.body.immovable = true;
+    single.scale.setTo(0.5, 0.5);
+    // var double = curr_scene.spikes.create(100, game.world.height - 150, 'doubleSpikes');
+    // double.body.immovable = true;
+    // double.scale.setTo(0.5, 0.5);
+    // var triple = curr_scene.spikes.create(game.world.width - 120, game.world.height - 90, 'tripleSpikes');
+    // triple.body.immovable = true;
+    // triple.scale.setTo(0.5, 0.5);
+    // var quad = curr_scene.spikes.create(game.world.width - 60, game.world.height - 90, 'quadSpikes');
+    // quad.body.immovable = true;
+    // quad.scale.setTo(0.5, 0.5);
+
+    curr_scene.width = [curr_scene.platforms.children, curr_scene.gems.children, curr_scene.spikes.children].reduce(function (a, b) {
+        return a.concat( b );
+    }, []).reduce((acc, curr) => Math.max(acc, curr.x + curr.width), 0);
+    curr_scene.moveRight();
+
+
+    // First scene to be shown
+    curr_scene = scenes[0];
+    curr_scene.moveRight();
+
 
     player = game.add.sprite(100, ground.y - ground.height - 25, 'dude');
     game.physics.arcade.enable(player);
@@ -227,6 +283,9 @@ function checkOverEach(min_pos, scene_component, scene){
         // console.log(min_pos);
         // TODO: Respawn coins and shit
         scene_component.forEach((scene_object) => scene_object.reset(scene_object.x + game.world.width, scene_object.y));
+
+        curr_scene = scenes[Math.floor(Math.random() * scenes.length)];
+        curr_scene.moveRight();
     }
 
 }
