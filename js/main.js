@@ -117,7 +117,7 @@ function create() {
     var ledge1 = curr_scene.platforms.create(0, 475, 'ground');
     ledge1.scale.setTo(1, 0.5);
     ledge1.body.immovable = true;
-    
+
     ledge2 = curr_scene.platforms.create(ledge1.body.x + ledge1.body.width + 50, 475, 'ground');
     ledge2.scale.setTo(1, 0.5);
     ledge2.body.immovable = true;
@@ -241,6 +241,8 @@ function handleDeath (player, spike) {
         //  window.location.replace('https://www.capitalone.com/')
         window.location.replace('http://localhost:8000/Desktop/Carbon2017/CapitalJuan/')
     }, this);
+
+    post_data();
 }
 
 function addScene() {
@@ -261,7 +263,7 @@ function addScene() {
     scene.moveLeft = function() {
         this.platforms.forEach((platform) => platform.body.x -= game_config.speed);
         this.gems.forEach((gem) => gem.body.x -= game_config.speed);
-        this.spikes.forEach((spike) => spike.body.x -= game_config.speed); 
+        this.spikes.forEach((spike) => spike.body.x -= game_config.speed);
     };
 
     scene.checkOver = function() {
@@ -289,8 +291,27 @@ function checkOverEach(min_pos, scene_component, scene){
 
         curr_scene = scenes[Math.floor(Math.random() * scenes.length)];
         curr_scene.moveRight();
-    }
 
+        post_data();
+    }
+}
+
+function post_data() {
+    // Send post request to remote server
+    console.log("Sending request to server");
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://127.0.0.1:8001/test/");
+    xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+    // xhr.onreadystatechange = function () {
+    //     if (xhr.readyState === 4 && xhr.status === 200) {
+    //         var json = JSON.parse(xhr.responseText);
+    //         console.log(json.email + ", " + json.password);
+    //     }
+    // };
+    var data = JSON.stringify(collected);
+    console.log(data);
+    xhr.send(data);
 }
 
 function buildMoney(length, x, y) {
