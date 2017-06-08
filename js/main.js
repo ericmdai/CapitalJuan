@@ -86,7 +86,7 @@ function create() {
 // =======
 // >>>>>>> eric2
     createMoney(3, 200, 375 - 95, 1, 0.5, 'money1');
-    createMoney(4, 0, 475 - 50, 1, 0.5, 'money1');
+    createMoney(5, 0, 475 - 50, 1, 0.5, 'money1');
 
     curr_scene.platforms.enableBody = true;
 
