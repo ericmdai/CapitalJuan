@@ -25,6 +25,7 @@ var spacebar;
 
 var score = 0;
 var scoreText;
+var gameOverText;
 
 function create() {
 
@@ -96,6 +97,7 @@ function update() {
 
 
 
+
     gems.forEach(function(gem) {
         gem.body.x -= 5;
         if (gem.body.x <= -gem.body.width) {
@@ -149,5 +151,11 @@ function collectGem (player, gem) {
 }
 
 function handleDeath (player, spike) {
-    player.kill();
+
+    game.add.text(310, 180, 'Game Over', { fontSize: '30px', fill: '#000' });
+    game.add.text(75, 240, 'Press the Space Key to return to your session:', { fontSize: '30px', fill: '#000' });
+    game.paused = true;
+    spacebar.onDown.add(() => {
+        window.location.replace('https://www.capitalone.com/')    
+    }, this);
 }
