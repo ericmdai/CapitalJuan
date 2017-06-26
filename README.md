@@ -23,10 +23,10 @@ New customers will then be given the option to play the game. Their data is then
 Our neural network is implemented with TensorFlow and deployed on an EC2 instance in AWS.
 
 ## Developers
-Eric Dai
-Felix Park
-Omar Baradei
-Juan Alonso Cruz
+Eric Dai <br>
+Felix Park <br>
+Omar Baradei <br>
+Juan Alonso Cruz <br>
 
 <i>" Juan's in your wallet {?, !} "</i>
 
