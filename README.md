@@ -27,8 +27,9 @@ Our neural network is implemented with TensorFlow and deployed on an EC2 instanc
 
 ## Developers
 Eric Dai <br>
-Felix Park <br>
 Omar Baradei <br>
+Felix Park <br>
+David Han <br>
 Juan Alonso Cruz <br>
 
 <i>" Juan's in your wallet {?, !} "</i>
